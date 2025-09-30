@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="7a0b9b86-4e6d-4143-b18f-0f5a730851de" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="deployementFlow" doc:id="1f6120ed-d892-4804-9310-3dec10d82ed0" >
+		<http:listener doc:name="Listener" doc:id="c3876b55-b01a-4dd6-abb3-92abcc13c37c" path="/fech" config-ref="HTTP_Listener_config"/>
+		<http:request method="GET" doc:name="Request" doc:id="3dc5005a-993c-4fbe-995e-0ed469eaea41" url="https://jsonplaceholder.typicode.com/comments"/>
+		<ee:transform doc:name="Transform Message" doc:id="ea79be0d-da46-4a2d-94e5-e8f79374d8e6">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="deployementFlow1" doc:id="10ec1742-c740-4441-b6d0-d77d3d89f0b8" >
+		<http:listener doc:name="Listener" doc:id="267fc36f-1e24-4eb8-8b7f-bc1db9be7555" config-ref="HTTP_Listener_config" path="/first"/>
+		<ee:transform doc:name="Transform Message" doc:id="88ec5d14-d783-420a-bffd-0d280bac9383" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"message": "this is my first trial"
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="deployementFlow2" doc:id="5ebeceb2-1e70-4f46-a63d-705e45b2c83d" >
+		<http:listener doc:name="Listener" doc:id="7205d054-9774-4dca-abb5-babdf6429788" config-ref="HTTP_Listener_config" path="/second"/>
+		<ee:transform doc:name="Transform Message" doc:id="ecadb70c-f6db-4cb0-a7c9-0f663a3ce87a" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"message": "this is my second trial"
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="deployementFlow3" doc:id="e72c6d5d-d1a7-4367-ac32-ad6e99c1b97f" >
+		<http:listener doc:name="Listener" doc:id="55bdcfb4-716f-476d-ab56-fbead9e3848b" config-ref="HTTP_Listener_config" path="/third"/>
+		<ee:transform doc:name="Transform Message" doc:id="9ef9e3bc-6d5c-4519-8d1c-8c3d906d1238" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"message": "this is my third trial"
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>
