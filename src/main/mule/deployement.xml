@@ -46,6 +46,9 @@ output application/json
 			</ee:message>
 		</ee:transform>
 	</flow>
+	<flow name="deployementFlow5" doc:id="23404daf-cc0f-4fbe-94aa-1e83faace573" >
+		<http:listener doc:name="Listener" doc:id="738c15e2-eae5-4840-b840-e538a0e59b48" config-ref="HTTP_Listener_config"/>
+	</flow>
 	<flow name="deployementFlow3" doc:id="e72c6d5d-d1a7-4367-ac32-ad6e99c1b97f" >
 		<http:listener doc:name="Listener" doc:id="55bdcfb4-716f-476d-ab56-fbead9e3848b" config-ref="HTTP_Listener_config" path="/third"/>
 		<ee:transform doc:name="Transform Message" doc:id="9ef9e3bc-6d5c-4519-8d1c-8c3d906d1238" >
@@ -58,5 +61,19 @@ output application/json
 }]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
+	</flow>
+	<flow name="deployementFlow4" doc:id="13cbf3cf-cc05-4749-96f1-dc7416e6a800" >
+		<http:listener doc:name="Listener" doc:id="d27d3d2a-2c13-41cb-b59d-a4891c4e9342" config-ref="HTTP_Listener_config" path="/minte"/>
+		<ee:transform doc:name="Transform Message" doc:id="2ec5b2b6-c5c7-41f5-a8ab-cf3a1ad723e8" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"minte": "minte"
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="bcc87b0d-b7d5-43c2-986f-672cdb2b2c79" message="This is a git example"/>
 	</flow>
 </mule>
